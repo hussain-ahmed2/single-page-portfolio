@@ -4,7 +4,7 @@ const first = 'Web Developer';
 const second = 'Web Designer';
 const third = 'Software Engineer';
 
-function infiniteTyping(arr) {
+function infiniteTyping() {
     let interval = 0;
 
     first.split('').forEach(letter => {
@@ -75,3 +75,28 @@ function handleNavClick() {
 
 navToggleBtn.addEventListener('click', handleNavClick);
 navList.forEach(item => item.addEventListener('click', handleNavClick));
+
+const section = document.querySelectorAll('section');
+window.addEventListener('scroll', window.addEventListener('scroll', () => {
+    let visibleSectionIndex = -1;
+    section.forEach((item, index) => {
+        const sectionTop = item.offsetTop;
+        const sectionHeight = item.offsetHeight;
+        const scrollTop = window.pageYOffset;
+        const sectionBottom = sectionTop + sectionHeight;
+        const isSectionVisible = scrollTop >= sectionTop - 100 && scrollTop <= sectionBottom;
+        if(isSectionVisible) {
+            visibleSectionIndex = index;
+        }      
+    });
+
+    if(visibleSectionIndex !== -1) {
+        navList.forEach((item, index) => {
+            if(index === visibleSectionIndex) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }      
+        });
+    }
+}));
